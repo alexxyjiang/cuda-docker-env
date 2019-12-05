@@ -13,6 +13,9 @@ COPY rserver.conf /etc/rstudio/
 RUN pip3 install --upgrade pip
 RUN pip install --upgrade setuptools \
   && pip install --upgrade jupyterlab
-COPY start_servers.sh .vim .vimrc /
-COPY .vim .vimrc /root/
+COPY start_servers.sh /start_servers.sh
+COPY .vim /.vim
+COPY .vimrc /.vimrc
+COPY .vim /root/.vim
+COPY .vimrc /root/.vimrc
 CMD ["sh", "/start_servers.sh"]
