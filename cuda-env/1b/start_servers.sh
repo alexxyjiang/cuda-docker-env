@@ -1,5 +1,5 @@
 #!/bin/bash
-mkdir -p /home/${USER}
-useradd -G rstudio-users -p `echo "${PASSWD}" | openssl passwd -1 -stdin` -s ${SHELL} ${USER} && chown ${USER} /home/${USER} && chgrp ${USER} /home/${USER}
+groupadd -g ${GID} ${USER}
+useradd -m -u ${UID} -g ${GID} -G rstudio-users -p `echo "${PASSWD}" | openssl passwd -1 -stdin` -s ${SHELL} ${USER}
 rstudio-server start
-su ${USER} -c "jupyter lab --no-browser --ip=\"0.0.0.0\" --notebook-dir=\"/home/${USER}\""
+chroot --userspec=${USER}:${USER} / ${SHELL} -c "env HOME=/home/${USER} jupyter lab --no-browser --ip=\"0.0.0.0\" --notebook-dir=\"/home/${USER}\""
