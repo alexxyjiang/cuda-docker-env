@@ -14,5 +14,5 @@ RUN pip3 install --upgrade pip
 RUN pip install --upgrade setuptools \
   && pip install --upgrade jupyterlab
 COPY start_servers.sh .vim .vimrc /
-COPY .vim .vimrc /root
+COPY .vim .vimrc /root/
 CMD ["sh", "/start_servers.sh"]
