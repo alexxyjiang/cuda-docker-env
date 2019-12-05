@@ -9,11 +9,10 @@ RUN apt-get update --fix-missing \
 RUN curl -o rstudio-server-1.2.5019-amd64.deb https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5019-amd64.deb \
   && dpkg -i rstudio-server-1.2.5019-amd64.deb
 RUN groupadd rstudio-users
-COPY rserver.conf /etc/rstudio/rserver.conf
+COPY rserver.conf /etc/rstudio/
 RUN pip3 install --upgrade pip
 RUN pip install --upgrade setuptools \
   && pip install --upgrade jupyterlab
-COPY .vimrc /.vimrc
-COPY .vim /.vim
-COPY start_servers.sh /start_servers.sh
+COPY start_servers.sh .vim .vimrc /
+COPY .vim .vimrc /root
 CMD ["sh", "/start_servers.sh"]
