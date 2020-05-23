@@ -13,6 +13,15 @@ COPY rserver.conf /etc/rstudio/
 RUN pip3 install --upgrade pip
 RUN pip install --upgrade setuptools \
   && pip install --upgrade jupyterlab
+RUN pip install --upgrade octave_kernel
+RUN curl -o coursier -L https://git.io/coursier-cli \
+  && chmod 755 coursier \
+  && env SCALA_VERSION=2.11.12 ALMOND_VERSION=0.9.1 ./coursier bootstrap \
+    -r jitpack \
+    -i user -I user:sh.almond:scala-kernel-api_$SCALA_VERSION:$ALMOND_VERSION \
+    sh.almond:scala-kernel_$SCALA_VERSION:$ALMOND_VERSION \
+    -o almond \
+  && ./almond --install
 COPY start_servers.sh /start_servers.sh
 COPY vim.tar.gz /vim.tar.gz
 CMD ["sh", "/start_servers.sh"]
