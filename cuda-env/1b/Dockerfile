@@ -14,7 +14,6 @@ COPY rserver.conf /etc/rstudio/
 RUN pip3 install --upgrade pip
 RUN pip install --upgrade setuptools \
   && pip install --upgrade jupyterlab
-RUN pip install --upgrade octave_kernel
 RUN curl -o coursier -L https://git.io/coursier-cli \
   && chmod 755 coursier \
   && ./coursier bootstrap \
@@ -22,7 +21,9 @@ RUN curl -o coursier -L https://git.io/coursier-cli \
     -i user -I user:sh.almond:scala-kernel-api_$SCALA_VERSION:$ALMOND_VERSION \
     sh.almond:scala-kernel_$SCALA_VERSION:$ALMOND_VERSION \
     -o almond \
-  && ./almond --install
+  && ./almond --install --global
+RUN R -e "install.packages('IRkernel');IRkernel::installspec(user = FALSE)"
+RUN pip install --upgrade octave_kernel
 COPY start_servers.sh /start_servers.sh
 COPY vim.tar.gz /vim.tar.gz
 CMD ["sh", "/start_servers.sh"]
