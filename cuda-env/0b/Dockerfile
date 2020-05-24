@@ -1,8 +1,9 @@
 FROM nvidia/cuda:10.2-runtime
 LABEL maintainer="Xueyuan, Jiang <alexxyjiang@gmail.com>"
-LABEL version="cuda10.2-jdk11.0.7-scala2.11.12-python3.6.9-r3.4.4-octave4.2.2"
+LABEL version="language-latest"
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 DEBIAN_FRONTEND=noninteractive
 RUN apt-get update --fix-missing \
   && apt-get install -y git zsh curl build-essential binutils
-RUN apt-get update --fix-missing \
-  && apt-get install -y openjdk-11-jdk scala python3-dev python3-pip r-base-dev octave
+RUN bash -c "$(curl -fsL https://deb.nodesource.com/setup_12.x)" \
+  && apt-get update --fix-missing \
+  && apt-get install -y openjdk-11-jdk scala python3-dev python3-pip r-base-dev octave nodejs
