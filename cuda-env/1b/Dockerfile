@@ -12,9 +12,10 @@ RUN curl -o rstudio-server-1.3.959-amd64.deb -fsL https://download2.rstudio.org/
 RUN groupadd -g ${RSTUDIO_GID} rstudio-users
 COPY rserver.conf /etc/rstudio/
 COPY texlive.profile /texlive.profile
+# https://mirrors.sjtug.sjtu.edu.cn/ctan/systems/texlive/tlnet
 RUN curl -o install-tl-unx.tar.gz -fsL http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
   && tar zxvf install-tl-unx.tar.gz > texlive-tar.log \
-  && `grep 'install-tl$' texlive-tar.log` -profile ./texlive.profile -logfile texlive-install.log
+  && `grep 'install-tl$' texlive-tar.log` -profile ./texlive.profile -logfile texlive-install.log -repository http://ctan.math.utah.edu/ctan/tex-archive/systems/texlive/tlnet/
 RUN pip3 install --upgrade pip
 RUN pip install --upgrade setuptools \
   && pip install --upgrade jupyterlab
