@@ -6,7 +6,7 @@ RUN echo "deb https://dl.bintray.com/sbt/debian /" > /etc/apt/sources.list.d/sbt
   && curl -fsL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | apt-key add
 RUN apt-get update --fix-missing
 RUN apt-get install -y libnvidia-gl-435
-RUN apt-get install -y libclang-dev psmisc maven sbt sudo lsb-release vim gnuplot pandoc
+RUN apt-get install -y libclang-dev psmisc cmake ninja-build maven sbt sudo lsb-release vim gnuplot pandoc
 RUN curl -o rstudio-server-1.3.959-amd64.deb -fsL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb  \
   && dpkg -i rstudio-server-1.3.959-amd64.deb
 RUN groupadd -g ${RSTUDIO_GID} rstudio-users
