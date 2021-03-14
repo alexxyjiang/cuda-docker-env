@@ -18,7 +18,6 @@ RUN curl -o install-tl-unx.tar.gz -fsL http://mirror.ctan.org/systems/texlive/tl
 RUN pip3 install --upgrade pip
 RUN pip install --upgrade setuptools \
   && pip install --upgrade jupyterlab
-RUN R -e "install.packages('IRkernel');IRkernel::installspec(user = FALSE)"
 RUN pip install --upgrade octave_kernel
 COPY start_servers.sh /start_servers.sh
 COPY vim.tar.gz /vim.tar.gz
